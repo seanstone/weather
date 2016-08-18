@@ -43,7 +43,7 @@ class Step {
 
     if (is_numeric ($c) && $c) Step::$progress[$str]['c'] = $c;
     Step::$progress[$str]['i'] = Step::$progress[$str]['i'] >= Step::$progress[$str]['c'] || $isStr ? Step::$progress[$str]['c'] : Step::$progress[$str]['i'];
-    
+
     preg_match_all('/(?P<c>[\x{4e00}-\x{9fa5}])/u', $str . ($isStr ? $c : ''), $matches);
     Step::$size = memory_get_usage () > Step::$size ? memory_get_usage () : Step::$size;
     $size = Step::memoryUnit (Step::$size - Step::$nowSize);
@@ -130,7 +130,7 @@ class Step {
   }
   public static function writeCatesApi () {
     Step::newLine ('-', '更新 Cates API', count (Step::$cates));
-    
+
     if ($errors = array_filter (array_map (function ($cate) {
       Step::progress ('更新 Cates API');
       return !write_file (PATH_API_CATES . $cate['id'] . JSON, json_encode ($cate)) ? ' 縣市：' . $cate['name'] : '';
@@ -140,14 +140,14 @@ class Step {
   }
   public static function writeTownsApi () {
     Step::newLine ('-', '更新 Towns API', count (Step::$towns));
-    
+
     if ($errors = array_filter (array_map (function ($town) {
       unset ($town['cwb_id']);
       $town['img'] = town_img_info ($town)['img'];
       Step::progress ('更新 Towns API');
       return !write_file (PATH_API_TOWNS . $town['id'] . JSON, json_encode ($town)) ? ' 鄉鎮：' . $town['cate']['name'] . $town['name'] : '';
     }, Step::$towns))) Step::error ($errors);
-    
+
     Step::progress ('更新 Towns API', '完成！');
   }
   public static function writeWeathersApi () {
@@ -165,7 +165,7 @@ class Step {
     $lasts = array ();
     Step::mergeArrayRecursive (Step::directoryMap (PATH_ASSET), $lasts, rtrim (PATH_ASSET, DIRECTORY_SEPARATOR));
     Step::newLine ('-', '清除 asset 內的檔案', count ($lasts));
-    
+
     if ($errors = array_filter (array_map (function ($last) {
       Step::progress ('清除 asset 內的檔案');
       return !@unlink ($last) ? ' 檔案：' . pathinfo ($last, PATHINFO_BASENAME) : '';
@@ -237,12 +237,12 @@ class Step {
   }
   public static function writeAllHtml () {
     Step::newLine ('-', '更新 All HTML');
-    
+
     $cates = array_values (array_filter (array_map (function ($cate) {
       $cate['towns'] = array_values (array_filter (array_map (function ($town) { return isset (Step::datas ()[$town['id']]) ? Step::datas ()[$town['id']] : array (); }, $cate['towns'])));
       return $cate['towns'] ? $cate : array ();
     }, Step::$cates)));
-    
+
     if (!write_file (PATH . 'all' . HTML, HTMLMin::minify (load_view (PATH_TEMPLATE . 'all' . PHP, array (
           'cates' => $cates,
           '_header' => load_view (PATH_TEMPLATE . '_header' . PHP, array ('active' => URL_ALL)),
@@ -291,7 +291,7 @@ class Step {
     $lasts = array ();
     Step::mergeArrayRecursive (Step::directoryMap (PATH_TOWNS), $lasts, rtrim (PATH_TOWNS, DIRECTORY_SEPARATOR));
     Step::newLine ('-', '清除 towns 內的檔案', count ($lasts));
-    
+
     if ($errors = array_filter (array_map (function ($last) {
       Step::progress ('清除 towns 內的檔案');
       return !@unlink ($last) ? ' 檔案：' . pathinfo ($last, PATHINFO_BASENAME) : '';
@@ -326,12 +326,12 @@ class Step {
   }
   public static function cleanSitemap () {
     Step::newLine ('-', '清除 Sitemap', count ($forders = array (PATH_SITEMAP)));
-    
+
     if ($errors = array_filter (array_map (function ($forder) {
         Step::progress ('清除 Sitemap');
         return !Step::directoryDelete ($forder, false) ? ' 目錄：' . $forder : '';
       }, $forders))) Step::error ($errors);
-    
+
     Step::progress ('清除 Sitemap', '完成！');
   }
   public static function writeSitemap () {
@@ -359,14 +359,14 @@ class Step {
   }
   public static function writeRobotsTxt () {
     Step::newLine ('-', '更新 Robots TXT');
-    
+
     if (!write_file (PATH . 'robots' . TXT, "Sitemap: " . URL_SITEMAP . "sitemap_index" . XML . "\n\nUser-agent: *")) Step::error ();
 
     Step::progress ('更新 Robots TXT', '完成！');
   }
   public static function initS3 ($access, $secret) {
     Step::newLine ('-', '初始化 S3 工具');
-    
+
     try {
       if (!S3::init ($access, $secret)) throw new Exception ('初始化失敗！');
     } catch (Exception $e) { Step::error (array (' ' . $e->getMessage ())); }
@@ -415,7 +415,7 @@ class Step {
   }
   public static function uploadLocalFiles ($files) {
     Step::newLine ('-', '上傳檔案', count ($files));
-    
+
     if ($errors = array_filter (array_map (function ($file) {
         try {
           Step::progress ('上傳檔案');
@@ -471,7 +471,7 @@ class Step {
   }
   public static function cleanDirs () {
     Step::newLine ('-', '清除目錄', count ($forders = array (PATH_API, PATH_ASSET, PATH_TOWNS, PATH_SITEMAP)));
-    
+
     if ($errors = array_filter (array_map (function ($forder) {
         Step::progress ('清除目錄');
         return !Step::directoryDelete ($forder) ? ' 目錄：' . $forder : '';
@@ -485,7 +485,7 @@ class Step {
 
     if (!write_file (PATH_API_WEATHERS . $town['id'] . JSON, json_encode ($weather)))
       return '寫入天氣失敗';
-    
+
     Step::$datas[$town['id']] = Step::buildDatas ($town, $weather);
     return '';
   }
@@ -494,7 +494,7 @@ class Step {
     $histories = $weather['histories'];
     $weather = end ($weather['histories']);
     $weather['img'] = URL_IMG_WEATHERS . $weather['img'];
-    
+
     $fTemperature = func (max ($t = column_array ($histories, 'temperature')), min ($t));
     $fHumidity = func (max ($t = column_array ($histories, 'humidity')), min ($t));
     $fRainfall = func (max ($t = column_array ($histories, 'rainfall')), min ($t));
@@ -521,7 +521,7 @@ class Step {
     if (($weather['temperature'] > Step::$maxs['temperature']['val']) || ($weather['temperature'] == Step::$maxs['temperature']['val'] && rand (0, 1))) Step::$maxs['temperature'] = array_merge (Step::$maxs['temperature'], array ('val' => $weather['temperature'], 'town' => $town['id']));
     if (($weather['humidity'] > Step::$maxs['humidity']['val']) || ($weather['humidity'] == Step::$maxs['humidity']['val'] && rand (0, 1))) Step::$maxs['humidity'] = array_merge (Step::$maxs['humidity'], array ('val' => $weather['humidity'], 'town' => $town['id']));
     if (($weather['rainfall'] > Step::$maxs['rainfall']['val']) || ($weather['rainfall'] == Step::$maxs['rainfall']['val'] && rand (0, 1))) Step::$maxs['rainfall'] = array_merge (Step::$maxs['rainfall'], array ('val' => $weather['rainfall'], 'town' => $town['id']));
-    
+
     if ($weather['temperature'] < Step::$mins['temperature']['val'] || ($weather['temperature'] == Step::$mins['temperature']['val'] && rand (0, 1))) Step::$mins['temperature'] = array_merge (Step::$mins['temperature'], array ('val' => $weather['temperature'], 'town' => $town['id']));
     if ($weather['humidity'] > 0 && ($weather['humidity'] < Step::$mins['humidity']['val'] || ($weather['humidity'] == Step::$mins['humidity']['val'] && rand (0, 1)))) Step::$mins['humidity'] = array_merge (Step::$mins['humidity'], array ('val' => $weather['humidity'], 'town' => $town['id']));
     if ($weather['rainfall'] > 0 && ($weather['rainfall'] < Step::$mins['rainfall']['val'] || ($weather['rainfall'] == Step::$mins['rainfall']['val'] && rand (0, 1)))) Step::$mins['rainfall'] = array_merge (Step::$mins['rainfall'], array ('val' => $weather['rainfall'], 'town' => $town['id']));
@@ -543,7 +543,7 @@ class Step {
         'img_dimension' => $town_img_info['dimension'],
         'icons' => Icon::gets ($weather['img']),
       ));
-    
+
     if (isset ($infos['地名緣由'])) array_push (Step::$questions[$k = '地名猜一猜'], array ('title' => $k, 'desc' => '你知道<b>' . $town['cate']['name'] . $town['name'] .'</b>的地名由來嗎？', 'text' => '答案看這裡', 'town' => $town));
     if (isset ($infos['野史傳說'])) array_push (Step::$questions[$k = '野史傳說'], array ('title' => $k, 'desc' => '你知道<b>' . $town['cate']['name'] . $town['name'] .'</b>傳奇的野史傳說嗎？', 'text' => '故事在這裡', 'town' => $town));
     if ($town['position']['zoom'] >=13) array_push (Step::$questions[$k = '台灣知多少'], array ('title' => $k, 'desc' => '你知道<b>' . $town['name'] .'</b>在台灣哪裡嗎？', 'text' => '答案看這裡', 'town' => $town));
@@ -556,7 +556,7 @@ class Step {
         if (!isset (Step::$towns[$id = pathinfo ($weather, PATHINFO_FILENAME)]))
           return array ();
         $weather = json_decode (read_file (PATH_API_WEATHERS . $weather), true);
-        
+
         return Step::buildDatas (Step::$towns[$id], $weather);
       }, Step::directoryList (PATH_API_WEATHERS))));
 
@@ -589,7 +589,7 @@ class Step {
           'l' => $data['link'],
         );
     }, Step::datas ()));
-    
+
     return Step::$mapsData;
   }
   public static function params ($params, $keys) {
@@ -681,7 +681,7 @@ class Step {
   }
   public static function directoryDelete ($dir, $is_root = true) {
     if (!file_exists ($dir)) return true;
-    
+
     $dir = rtrim ($dir, DIRECTORY_SEPARATOR);
     if (!$currentDir = @opendir ($dir))
       return false;
@@ -695,7 +695,7 @@ class Step {
 
     return $is_root ? @rmdir ($dir) : true;
   }
-  
+
   public static function mkdir777 ($path) {
     $oldmask = umask (0);
     @mkdir ($path, 0777, true);

@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Language" content="zh-tw" />
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui" />
-    
+
     <title><?php echo $title = '快速搜尋地方天氣' . ' - ' . TITLE;?></title>
 
     <meta name="robots" content="index,follow" />
@@ -37,7 +37,7 @@
         <link href="<?php echo PROTOCOL . BUCKET . '/' . NAME . $path;?>" rel="stylesheet" type="text/css" />
 <?php } ?>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwwd8RtByLxQJcAnt8JMzznijiTPnelyA&v=3.exp&sensor=false&language=zh-TW" language="javascript" type="text/javascript" ></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIuOfsJYZwj64PNQ8RE6Cry21SRen-FN8&v=3.exp&sensor=false&language=zh-TW" language="javascript" type="text/javascript" ></script>
 <?php foreach (Min::js ('/js/public' . JS, '/asset/maps' . JS, '/js/search' . JS) as $path) { ?>
         <script src="<?php echo PROTOCOL . BUCKET . '/' . NAME . $path;?>" language="javascript" type="text/javascript" ></script>
 <?php }?>
@@ -65,7 +65,7 @@
 
   </head>
   <body lang="zh-tw">
-    
+
     <?php echo $_header;?>
 
     <div class='_scope' itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
@@ -73,7 +73,7 @@
     </div>
 
     <div id='container'>
-      
+
       <article>
         <header>
           <h1>

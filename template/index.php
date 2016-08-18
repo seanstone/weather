@@ -37,7 +37,7 @@
         <link href="<?php echo PROTOCOL . BUCKET . '/' . NAME . $path;?>" rel="stylesheet" type="text/css" />
 <?php } ?>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwwd8RtByLxQJcAnt8JMzznijiTPnelyA&v=3.exp&sensor=false&language=zh-TW" language="javascript" type="text/javascript" ></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIuOfsJYZwj64PNQ8RE6Cry21SRen-FN8&v=3.exp&sensor=false&language=zh-TW" language="javascript" type="text/javascript" ></script>
 <?php foreach (Min::js  ('/js/public' . JS, '/js/index' . JS) as $path) { ?>
         <script src="<?php echo PROTOCOL . BUCKET . '/' . NAME . $path;?>" language="javascript" type="text/javascript" ></script>
 <?php }?>
@@ -64,7 +64,7 @@
     </script>
   </head>
   <body lang="zh-tw">
-    
+
     <?php echo $_header;?>
 
     <div class='_scope' itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
@@ -93,9 +93,9 @@
                 <time datetime='<?php echo $town['weather']['at'];?>'><?php echo $town['weather']['at'];?><time>
               </div>
             </a>
-          </div>  
+          </div>
   <?php } ?>
-        
+
         <div id='add'>
           <i></i><i></i><i></i><i></i>
           <span>新增關注追蹤地區！</span>
@@ -134,7 +134,7 @@
             <?php } ?>
                 </section>
         <?php } ?>
-            
+
               <time datetime='<?php echo $special['special']['at'];?>'><?php echo $special['special']['at'];?></time>
 
             </article>

@@ -37,7 +37,7 @@
         <link href="<?php echo PROTOCOL . BUCKET . '/' . NAME . $path;?>" rel="stylesheet" type="text/css" />
 <?php } ?>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwwd8RtByLxQJcAnt8JMzznijiTPnelyA&v=3.exp&sensor=false&language=zh-TW" language="javascript" type="text/javascript" ></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIuOfsJYZwj64PNQ8RE6Cry21SRen-FN8&v=3.exp&sensor=false&language=zh-TW" language="javascript" type="text/javascript" ></script>
 <?php foreach (Min::js ('/js/public' . JS, '/asset/maps' . JS, '/js/content' . JS) as $path) { ?>
         <script src="<?php echo PROTOCOL . BUCKET . '/' . NAME . $path;?>" language="javascript" type="text/javascript" ></script>
 <?php }?>
@@ -67,7 +67,7 @@
 
   </head>
   <body lang="zh-tw">
-    
+
     <?php echo $_header;?>
 
     <div class='_scope' itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
@@ -101,7 +101,7 @@
                   <h2><?php echo $town['weather']['desc'];?></h2>
                   <div class='fb-like' data-href='<?php echo $town['link'];?>' data-send='false' data-layout='button_count' data-action='like' data-show-faces='false' data-share='true'></div>
                 </header>
-                
+
                 <div>
                   <span><b>溫度：</b><?php echo $town['weather']['temperature'];?>°c</span>
                   <span><b>濕度：</b><?php echo $town['weather']['humidity'];?>%</span>
@@ -156,7 +156,7 @@
           <div>雨量</div>
         </span>
       </article>
-      
+
 <?php foreach ($town['infos'] as $title => $info) { ?>
         <article>
           <header><?php echo $title;?></header>
@@ -194,6 +194,6 @@
     <?php echo $_aside;?>
     <?php echo $_footer;?>
     <div id='fb-root'></div>
-    
+
   </body>
 </html>

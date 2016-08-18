@@ -45,14 +45,14 @@ echo json_encode (array (
         <link href="<?php echo PROTOCOL . BUCKET . '/' . NAME . $path;?>" rel="stylesheet" type="text/css" />
 <?php } ?>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwwd8RtByLxQJcAnt8JMzznijiTPnelyA&v=3.exp&sensor=false&language=zh-TW" language="javascript" type="text/javascript" ></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIuOfsJYZwj64PNQ8RE6Cry21SRen-FN8&v=3.exp&sensor=false&language=zh-TW" language="javascript" type="text/javascript" ></script>
 <?php foreach (Min::js ('/js/public' . JS, '/js/all' . JS) as $path) { ?>
         <script src="<?php echo PROTOCOL . BUCKET . '/' . NAME . $path;?>" language="javascript" type="text/javascript" ></script>
 <?php }?>
 
   </head>
   <body lang="zh-tw">
-    
+
     <?php echo $_header;?>
 
     <div class='_scope' itemscope itemtype="http://data-vocabulary.org/Breadcrumb">

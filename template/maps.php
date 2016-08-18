@@ -37,11 +37,11 @@
         <link href="<?php echo PROTOCOL . BUCKET . '/' . NAME . $path;?>" rel="stylesheet" type="text/css" />
 <?php } ?>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwwd8RtByLxQJcAnt8JMzznijiTPnelyA&v=3.exp&sensor=false&language=zh-TW" language="javascript" type="text/javascript" ></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIuOfsJYZwj64PNQ8RE6Cry21SRen-FN8&v=3.exp&sensor=false&language=zh-TW" language="javascript" type="text/javascript" ></script>
 <?php foreach (Min::js ('/js/public' . JS, '/asset/maps' . JS) as $path) { ?>
         <script src="<?php echo PROTOCOL . BUCKET . '/' . NAME . $path;?>" language="javascript" type="text/javascript" ></script>
 <?php }?>
-    
+
     <script type="application/ld+json">
 <?php $items = array (); foreach ($weathers as $i => $weather) array_push ($items, array ('@type' => 'ListItem', 'position' => $i + 1, 'item' => array ('@id' => $weather['l'], 'url' => $weather['l'], 'name' => $weather['c'] . $weather['n'])));
 echo json_encode (array (
@@ -52,13 +52,13 @@ echo json_encode (array (
 
   </head>
   <body lang="zh-tw">
-    
+
     <?php echo $_header;?>
 
     <div class='_scope' itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
       <a itemprop="url" href='<?php echo URL_MAPS;?>'><span itemprop="title"><?php echo preg_replace ("/\.+/", "", '地圖模式');?></span></a>
     </div>
-    
+
     <div id='maps' data-position='<?php echo json_encode (null);?>'>
 <?php foreach ($weathers as $weather) { ?>
         <a href='<?php echo $weather['l'];?>'><?php echo $weather['c'];?> <?php echo $weather['n'];?></a>
