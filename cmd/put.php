@@ -25,7 +25,7 @@ include_once PATH_CMD_LIBS . 'Sitemap' . PHP;
 
 Step::start ();
 
-$bucket = "127.0.0.1";
+$bucket = "127.0.0.1:8100";
 $access = 0;
 $secret = 0;
 
@@ -43,7 +43,9 @@ define ('ACCESS', $access);
 define ('SECRET', $secret);
 define ('UPLOAD', isset ($argv['-u'][0]) && is_numeric ($tmp = $argv['-u'][0]) ? $tmp ? true : false : true);
 define ('MINIFY', isset ($argv['-m'][0]) && is_numeric ($tmp = $argv['-m'][0]) ? $tmp ? true : false : true);
-define ('UPDATE', isset ($argv['-d'][0]) && is_numeric ($tmp = $argv['-d'][0]) ? $tmp ? true : false : true);
+//define ('UPDATE', isset ($argv['-d'][0]) && is_numeric ($tmp = $argv['-d'][0]) ? $tmp ? true : false : true);
+
+define ('UPDATE', false);
 
 include_once PATH_CMD_LIBS . 'define_urls' . PHP;
 
@@ -63,7 +65,7 @@ Step::cleanAsset ();
 Step::writeMapsJs ();
 // ---------------
 
-Step::deleteHtmlAndTxt ();
+//Step::deleteHtmlAndTxt ();
 Step::writeIndexHtml ();
 Step::writeAllHtml ();
 Step::writeMapsHtml ();
